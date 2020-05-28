@@ -53,9 +53,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
 				.and()
 				.authorizeRequests()
 				.antMatchers(HttpMethod.OPTIONS).permitAll()
-				.antMatchers(HttpMethod.GET).authenticated()
-            .antMatchers(HttpMethod.POST,"/work/**/**","/professor/**/**").hasAnyRole(UserRole.ADMIN.toString(), UserRole.PROFESSOR.toString())
-            .antMatchers("/oauth/**").permitAll()
+//				.antMatchers(HttpMethod.GET).authenticated()
+//            .antMatchers(HttpMethod.POST,"/work/**/**","/professor/**/**").hasAnyRole(UserRole.ADMIN.toString(), UserRole.PROFESSOR.toString())
+//            .antMatchers("/oauth/**").permitAll()
             .anyRequest().permitAll()
             .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
 	}
