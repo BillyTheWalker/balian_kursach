@@ -42,11 +42,12 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
               .antMatchers(HttpMethod.POST, "/professor/**").access("hasAuthority('ADMIN')")
               .antMatchers(HttpMethod.POST, "/work/**").access("hasAnyAuthority('ADMIN','PROFESSOR')")
 
-              .antMatchers(HttpMethod.GET, "/professor/**","/work/**","/load/**","/user/**").access("hasAnyAuthority('ADMIN','PROFESSOR','CHASTYNA')")
+              .antMatchers(HttpMethod.GET, "/professor/**", "/work/**", "/user/**")
+              .access("hasAnyAuthority('ADMIN','PROFESSOR','CHASTYNA')")
 
               .antMatchers(HttpMethod.DELETE).access("hasAuthority('ADMIN')")
 
-              .antMatchers(HttpMethod.GET, "/**").permitAll()
+              .antMatchers(HttpMethod.GET, "/**/**").permitAll()
 
               .anyRequest().permitAll();
     }

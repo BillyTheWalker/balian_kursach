@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -64,6 +66,13 @@ public class WorkController extends CRUDController<Work>
 	public List<Work> search()
 	{
 		return workService.findAllByPattern(true);
+	}
+
+	@GetMapping("/categories")
+	@ResponseBody
+	public List<String> getCategories()
+	{
+		return Arrays.stream(CalculationTypes.values()).map(Enum::toString).collect(Collectors.toList());
 	}
 
 	@Override

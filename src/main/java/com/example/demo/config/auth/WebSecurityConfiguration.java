@@ -15,10 +15,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+
 @Configuration
 @ComponentScan("com.example.*")
 @EnableWebSecurity
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
+{
 
     @Qualifier("userDetailsServiceImpl") @Autowired
     private UserDetailsService userDetailsService;
@@ -53,14 +55,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .antMatchers("/node_modules/**").permitAll()
-                .antMatchers("/assets/**").permitAll()
-                .antMatchers("/oauth/token").permitAll()
-                .and().formLogin().loginPage("/login").permitAll();
+              .sessionManagement()
+              .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+              .and()
+              .authorizeRequests()
+              .antMatchers("/**").permitAll()
+              .antMatchers("/node_modules/**").permitAll()
+              .antMatchers("/assets/**").permitAll()
+              .antMatchers("/oauth/token").permitAll()
+              .and().formLogin().loginPage("/login").permitAll();
     }
 }
