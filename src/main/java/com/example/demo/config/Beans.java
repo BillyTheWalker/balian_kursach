@@ -11,6 +11,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -35,13 +38,24 @@ public class Beans implements ApplicationContextAware
 		calculationStrategies.put(CalculationTypes.DEFAULT, applicationContext.getBean(DefaultCalculationStrategy.class));
 		return calculationStrategies;
 	}
+
 	@Bean
-	public Docket api() {
+	public Docket api()
+	{
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage("com.example.demo.controller"))
 				.paths(PathSelectors.any())
 				.build();
+	}
+	/**
+	 * Sets Bcrypt encoder to be used in application.
+	 *
+	 * @return PAsswordEncoder instance.
+	 */
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 	@Override
 	public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException

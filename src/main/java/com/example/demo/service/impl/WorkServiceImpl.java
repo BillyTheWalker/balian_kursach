@@ -44,9 +44,9 @@ public class WorkServiceImpl extends AbstractCRUDServiceImpl<Work> implements Wo
 	}
 
 	@Override
-	public List<Work> findAllByCalculationTypeAndPattern(final CalculationTypes calculationType, final boolean pattern)
+	public List<Work> findAllByProfessorAndCalculation(final Long professorId, final CalculationTypes calculationType)
 	{
-		return getRepositoryInternal().findAllByCalculationTypeAndPattern(calculationType, pattern);
+		return getRepositoryInternal().findAllByCalculationTypeAndProfessor_Id(calculationType, professorId);
 	}
 
 	private WorkRepository getRepositoryInternal()

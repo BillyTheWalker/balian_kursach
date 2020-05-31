@@ -14,5 +14,5 @@ public interface WorkService extends CRUDService<Work>
 
 	List<Work> findAllByPattern(final boolean pattern);
 
-	List<Work> findAllByCalculationTypeAndPattern(final CalculationTypes calculationType, final boolean pattern);
+	List<Work> findAllByProfessorAndCalculation(final Long professorId, final CalculationTypes calculationType);
 }

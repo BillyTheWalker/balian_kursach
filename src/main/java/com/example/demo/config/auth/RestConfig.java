@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.config.auth;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -21,12 +21,10 @@ public class RestConfig implements Filter
 {
 
 
-    public RestConfig() {
+    public void destroy() {
     }
 
-    @Override
-    public void destroy() {
-
+    public RestConfig() {
     }
 
     @Override
@@ -39,6 +37,7 @@ public class RestConfig implements Filter
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization,Content-Type,Origin,enctype");
         response.setHeader("Access-Control-Allow-Credentials", "true");
+//        response.setHeader("Access-Control-Request-Headers", "x-requested-with, authorization,Content-Type,");
 
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);

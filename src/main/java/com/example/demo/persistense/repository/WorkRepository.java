@@ -12,5 +12,9 @@ import java.util.List;
 public interface WorkRepository extends JpaRepository<Work, Long>
 {
 	List<Work> findAllByPattern(final boolean pattern);
-	List<Work> findAllByCalculationTypeAndPattern(final CalculationTypes calculationType, final boolean pattern);
+
+	List<Work> findAllByCalculationTypeAndProfessor_Id(final CalculationTypes calculationType,
+			final Long professor_id);
+
+	List<Work> findAllByProfessor_Id(final Long professor_id);
 }

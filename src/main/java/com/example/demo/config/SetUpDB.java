@@ -1,14 +1,13 @@
 package com.example.demo.config;
 
-import com.example.demo.persistense.models.Admin;
 import com.example.demo.persistense.models.LoadStandard;
 import com.example.demo.persistense.models.Property;
+import com.example.demo.persistense.models.User;
 import com.example.demo.persistense.models.enums.UserRole;
-import com.example.demo.persistense.repository.AdminRepository;
 import com.example.demo.persistense.repository.LoadStandardRepository;
+import com.example.demo.persistense.repository.UserRepository;
 import com.example.demo.service.PropertyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Example;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class SetUpDB
 {
 	private final PropertyService propertyService;
-	private final AdminRepository adminRepository;
+	private final UserRepository userRepository;
 	private final LoadStandardRepository loadStandardRepository;
 	private final PasswordEncoder passwordEncoder;
 
@@ -33,10 +32,18 @@ public class SetUpDB
 	{
 		try
 		{
-			if (adminRepository.findOne(Example.of(Admin.builder().username("admin").build())).isPresent())
-				return;
-			adminRepository.save(Admin.builder().userRole(UserRole.ADMIN).username("admin").password(passwordEncoder.encode("admin")).build());
-			adminRepository.save(Admin.builder().userRole(UserRole.CHASTYNA).username("edu_part").password(passwordEncoder.encode("edu_part")).build());
+			userRepository.findByUsername("admin").orElseGet(() -> userRepository
+					.save(User.builder()
+							.userRole(UserRole.ADMIN)
+							.username("admin")
+							.password(passwordEncoder.encode("admin"))
+							.build()));
+			userRepository.findByUsername("edu_part").orElseGet(() -> userRepository
+					.save(User.builder()
+							.userRole(UserRole.CHASTYNA)
+							.username("edu_part")
+							.password(passwordEncoder.encode("edu_part"))
+							.build()));
 		}
 		catch (Exception e)
 		{
